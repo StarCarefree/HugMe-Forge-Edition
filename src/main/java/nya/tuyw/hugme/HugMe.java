@@ -12,10 +12,9 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModContainer;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -34,9 +33,9 @@ public class HugMe {
     public static final DeferredRegister<Item> HUGME_ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, HugMe.MODID);
     public static final RegistryObject<Item> HUG_TICKET = HUGME_ITEMS.register("hug_ticket", () -> new HugTicketItem(new Item.Properties().stacksTo(64)));
 
-    public HugMe(IEventBus modEventBus, ModContainer modContainer) {
-        HUGME_ITEMS.register(modEventBus);
-        modEventBus.addListener(this::addCreative);
+    public HugMe(FMLJavaModLoadingContext context) {
+        HUGME_ITEMS.register(context.getModEventBus());
+        context.getModEventBus().addListener(this::addCreative);
         HugRenderPayload.register();
         MinecraftForge.EVENT_BUS.register(this);
     }
