@@ -3,6 +3,7 @@ package nya.tuyw.hugme.network;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.network.chat.Component;
+import net.minecraftforge.network.NetworkEvent;
 import nya.tuyw.hugme.HugMe;
 import nya.tuyw.hugme.animation.AnimationManager;
 import nya.tuyw.hugme.animation.HugAnimationEnum;
@@ -13,21 +14,21 @@ import java.util.UUID;
 public class HugRenderClientHandler {
     private static final Minecraft client = Minecraft.getInstance();
 
-    public static void handleHugRender(final HugRenderPayload hugRenderPayload, final IPayloadContext context) {
+    public static void handleHugRender(String senderId, String receiverId, boolean isdone, int animationEnum, NetworkEvent.Context context) {
         context.enqueueWork(() -> {
             if (client.level == null) return;
-            AbstractClientPlayer sender = (AbstractClientPlayer) client.level.getPlayerByUUID(UUID.fromString(hugRenderPayload.sender()));
-            AbstractClientPlayer receiver = (AbstractClientPlayer) client.level.getPlayerByUUID(UUID.fromString(hugRenderPayload.receiver()));
+            AbstractClientPlayer sender = (AbstractClientPlayer) client.level.getPlayerByUUID(UUID.fromString(senderId));
+            AbstractClientPlayer receiver = (AbstractClientPlayer) client.level.getPlayerByUUID(UUID.fromString(receiverId));
             if (sender == null || receiver == null) return;
-            if (!hugRenderPayload.isdone()) {
+            if (!isdone) {
                 RenderPlayerEventHandler.lockPlayers(sender, receiver);
-                startHugAnimation(sender, receiver, hugRenderPayload.animationEnum());
+                startHugAnimation(sender, receiver, animationEnum);
             } else {
                 RenderPlayerEventHandler.unlockPlayers(sender, receiver);
             }
 
         }).exceptionally(e -> {
-            context.disconnect(Component.translatable("hugme.networking.failed", e.getMessage()));
+            context.getNetworkManager().disconnect(Component.translatable("hugme.networking.failed", e.getMessage()));
             return null;
         });
     }

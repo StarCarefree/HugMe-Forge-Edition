@@ -28,7 +28,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Supplier;
 
 @Mod.EventBusSubscriber(modid = HugMe.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class HugCommandHandler {
@@ -167,7 +166,7 @@ public class HugCommandHandler {
 
         int enumNumber = new Random().nextInt(HugAnimationEnum.values().length);
         for (ServerPlayer serverPlayer : nearbyPlayers) {
-            PacketDistributor.PLAYER.with(()-> serverPlayer).send(new HugRenderPayload(sender.getStringUUID(), receiver.getStringUUID(), false, enumNumber));
+            HugRenderPayload.INSTANCE.send(PacketDistributor.PLAYER.with(()-> serverPlayer), new HugRenderPayload.Packet(sender.getStringUUID(), receiver.getStringUUID(), false, enumNumber));
         }
     }
 
@@ -231,7 +230,7 @@ public class HugCommandHandler {
         }
         if (sender != null && receiver != null) {
             for (ServerPlayer player : status.getNearbyPlayers()) {
-                PacketDistributor.PLAYER.with(() -> player).send(new HugRenderPayload(sender.getStringUUID(), receiver.getStringUUID(), true, 0));
+                HugRenderPayload.INSTANCE.send(PacketDistributor.PLAYER.with(()-> player), new HugRenderPayload.Packet(sender.getStringUUID(), receiver.getStringUUID(), true, 0));
             }
             hugStatuses.remove(new Pair<>(senderId, receiverId));
         }

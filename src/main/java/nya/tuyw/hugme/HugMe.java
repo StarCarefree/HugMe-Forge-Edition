@@ -22,6 +22,7 @@ import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.server.ServerLifecycleHooks;
 import nya.tuyw.hugme.command.HugCommandHandler;
 import nya.tuyw.hugme.item.HugTicketItem;
+import nya.tuyw.hugme.network.HugRenderPayload;
 import org.slf4j.Logger;
 
 import java.io.File;
@@ -36,7 +37,7 @@ public class HugMe {
     public HugMe(IEventBus modEventBus, ModContainer modContainer) {
         HUGME_ITEMS.register(modEventBus);
         modEventBus.addListener(this::addCreative);
-
+        HugRenderPayload.register();
         MinecraftForge.EVENT_BUS.register(this);
     }
 

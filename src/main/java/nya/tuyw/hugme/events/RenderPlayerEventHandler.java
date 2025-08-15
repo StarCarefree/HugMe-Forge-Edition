@@ -86,7 +86,7 @@ public class RenderPlayerEventHandler {
         model.setupAnim(entity, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F);
         RenderType renderType = RenderType.entityCutoutNoCull(renderer.getTextureLocation(entity));
 
-        model.renderToBuffer(poseStack, buffer.getBuffer(renderType), packedLight, OverlayTexture.NO_OVERLAY, -1);
+        model.renderToBuffer(poseStack, buffer.getBuffer(renderType), packedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
     }
 
     private static float calculateYawToTarget(AbstractClientPlayer fromPlayer, AbstractClientPlayer toPlayer) {
