@@ -33,7 +33,8 @@ public class HugMe {
     public static final DeferredRegister<Item> HUGME_ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, HugMe.MODID);
     public static final RegistryObject<Item> HUG_TICKET = HUGME_ITEMS.register("hug_ticket", () -> new HugTicketItem(new Item.Properties().stacksTo(64)));
 
-    public HugMe(FMLJavaModLoadingContext context) {
+    public HugMe() {
+        FMLJavaModLoadingContext context = FMLJavaModLoadingContext.get();
         HUGME_ITEMS.register(context.getModEventBus());
         context.getModEventBus().addListener(this::addCreative);
         HugRenderPayload.register();
