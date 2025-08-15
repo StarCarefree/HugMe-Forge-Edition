@@ -47,7 +47,7 @@ public class HugMe {
     }
 
     @SubscribeEvent
-    private void onServerStarting(ServerStartingEvent event) {
+    public void onServerStarting(ServerStartingEvent event) {
         HugCommandHandler.register(event.getServer().getCommands().getDispatcher());
     }
 
