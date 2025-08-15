@@ -23,7 +23,7 @@ public class AnimationManager {
 
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
-        PlayerAnimationFactory.ANIMATION_DATA_FACTORY.registerFactory(ResourceLocation.fromNamespaceAndPath("hugme", "animations"), 42, (player) -> {
+        PlayerAnimationFactory.ANIMATION_DATA_FACTORY.registerFactory(new ResourceLocation("hugme", "animations"), 42, (player) -> {
             if (player instanceof AbstractClientPlayer) {
                 ModifierLayer<IAnimation> hugAnimation = new ModifierLayer<>();
                 hugAnimation.addModifierBefore(new SpeedModifier(0.5F));
@@ -36,8 +36,8 @@ public class AnimationManager {
     @SuppressWarnings("all")
     public static void playHugAnimation(AbstractClientPlayer sender, AbstractClientPlayer receiver,HugAnimationEnum hugAnimationEnum) {
         if (sender == null) return;
-        ModifierLayer<IAnimation> senderAnimation = (ModifierLayer<IAnimation>) PlayerAnimationAccess.getPlayerAssociatedData(sender).get(ResourceLocation.fromNamespaceAndPath("hugme", "animations"));
-        ModifierLayer<IAnimation> receiverAnimation = (ModifierLayer<IAnimation>) PlayerAnimationAccess.getPlayerAssociatedData(receiver).get(ResourceLocation.fromNamespaceAndPath("hugme", "animations"));
+        ModifierLayer<IAnimation> senderAnimation = (ModifierLayer<IAnimation>) PlayerAnimationAccess.getPlayerAssociatedData(sender).get(new ResourceLocation("hugme", "animations"));
+        ModifierLayer<IAnimation> receiverAnimation = (ModifierLayer<IAnimation>) PlayerAnimationAccess.getPlayerAssociatedData(receiver).get(new ResourceLocation("hugme", "animations"));
 
         KeyframeAnimation sender_animation;
         KeyframeAnimationPlayer sender_animationPlayer = null;
@@ -46,41 +46,41 @@ public class AnimationManager {
 
         switch (hugAnimationEnum) {
             case NORMALHUG -> {
-                sender_animation = (KeyframeAnimation) PlayerAnimationRegistry.getAnimation(ResourceLocation.fromNamespaceAndPath("hugme", "hug_normal_sender"));
+                sender_animation = (KeyframeAnimation) PlayerAnimationRegistry.getAnimation(new ResourceLocation("hugme", "hug_normal_sender"));
                 sender_animationPlayer = new KeyframeAnimationPlayer(sender_animation)
                         .setFirstPersonMode(FirstPersonMode.THIRD_PERSON_MODEL)
                         .setFirstPersonConfiguration(new FirstPersonConfiguration().setShowLeftArm(true).setShowLeftItem(false).setShowRightArm(true).setShowRightItem(false));
-                receiver_animation = (KeyframeAnimation) PlayerAnimationRegistry.getAnimation(ResourceLocation.fromNamespaceAndPath("hugme", "hug_normal_receiver"));
+                receiver_animation = (KeyframeAnimation) PlayerAnimationRegistry.getAnimation(new ResourceLocation("hugme", "hug_normal_receiver"));
                 receiver_animationPlayer = new KeyframeAnimationPlayer(receiver_animation)
                         .setFirstPersonMode(FirstPersonMode.THIRD_PERSON_MODEL)
                         .setFirstPersonConfiguration(new FirstPersonConfiguration().setShowLeftArm(true).setShowLeftItem(false).setShowRightArm(true).setShowRightItem(false));
             }//未实现
 //            case FLYHUG -> {
-//                sender_animation = PlayerAnimationRegistry.getAnimation(ResourceLocation.fromNamespaceAndPath("hugme", "hug_fly_sender"));
+//                sender_animation = PlayerAnimationRegistry.getAnimation(new ResourceLocation("hugme", "hug_fly_sender"));
 //                sender_animationPlayer = new KeyframeAnimationPlayer(sender_animation)
 //                        .setFirstPersonMode(FirstPersonMode.THIRD_PERSON_MODEL)
 //                        .setFirstPersonConfiguration(new FirstPersonConfiguration().setShowLeftArm(true).setShowLeftItem(false).setShowRightArm(true).setShowRightItem(false));
-//                receiver_animation = PlayerAnimationRegistry.getAnimation(ResourceLocation.fromNamespaceAndPath("hugme", "hug_fly_receiver"));
+//                receiver_animation = PlayerAnimationRegistry.getAnimation(new ResourceLocation("hugme", "hug_fly_receiver"));
 //                receiver_animationPlayer = new KeyframeAnimationPlayer(receiver_animation)
 //                        .setFirstPersonMode(FirstPersonMode.THIRD_PERSON_MODEL)
 //                        .setFirstPersonConfiguration(new FirstPersonConfiguration().setShowLeftArm(true).setShowLeftItem(false).setShowRightArm(true).setShowRightItem(false));
 //            }
             case TOUCHHEADHUG -> {
-                sender_animation = (KeyframeAnimation) PlayerAnimationRegistry.getAnimation(ResourceLocation.fromNamespaceAndPath("hugme", "hug_touch_sender"));
+                sender_animation = (KeyframeAnimation) PlayerAnimationRegistry.getAnimation(new ResourceLocation("hugme", "hug_touch_sender"));
                 sender_animationPlayer = new KeyframeAnimationPlayer(sender_animation)
                         .setFirstPersonMode(FirstPersonMode.THIRD_PERSON_MODEL)
                         .setFirstPersonConfiguration(new FirstPersonConfiguration().setShowLeftArm(true).setShowLeftItem(false).setShowRightArm(true).setShowRightItem(false));
-                receiver_animation = (KeyframeAnimation) PlayerAnimationRegistry.getAnimation(ResourceLocation.fromNamespaceAndPath("hugme", "hug_touch_receiver"));
+                receiver_animation = (KeyframeAnimation) PlayerAnimationRegistry.getAnimation(new ResourceLocation("hugme", "hug_touch_receiver"));
                 receiver_animationPlayer = new KeyframeAnimationPlayer(receiver_animation)
                         .setFirstPersonMode(FirstPersonMode.THIRD_PERSON_MODEL)
                         .setFirstPersonConfiguration(new FirstPersonConfiguration().setShowLeftArm(true).setShowLeftItem(false).setShowRightArm(true).setShowRightItem(false));
             }
             default -> {
-                sender_animation = (KeyframeAnimation) PlayerAnimationRegistry.getAnimation(ResourceLocation.fromNamespaceAndPath("hugme", "hug_normal_sender"));
+                sender_animation = (KeyframeAnimation) PlayerAnimationRegistry.getAnimation(new ResourceLocation("hugme", "hug_normal_sender"));
                 sender_animationPlayer = new KeyframeAnimationPlayer(sender_animation)
                         .setFirstPersonMode(FirstPersonMode.THIRD_PERSON_MODEL)
                         .setFirstPersonConfiguration(new FirstPersonConfiguration().setShowLeftArm(true).setShowLeftItem(false).setShowRightArm(true).setShowRightItem(false));
-                receiver_animation = (KeyframeAnimation) PlayerAnimationRegistry.getAnimation(ResourceLocation.fromNamespaceAndPath("hugme", "hug_normal_receiver"));
+                receiver_animation = (KeyframeAnimation) PlayerAnimationRegistry.getAnimation(new ResourceLocation("hugme", "hug_normal_receiver"));
                 receiver_animationPlayer = new KeyframeAnimationPlayer(receiver_animation)
                         .setFirstPersonMode(FirstPersonMode.THIRD_PERSON_MODEL)
                         .setFirstPersonConfiguration(new FirstPersonConfiguration().setShowLeftArm(true).setShowLeftItem(false).setShowRightArm(true).setShowRightItem(false));

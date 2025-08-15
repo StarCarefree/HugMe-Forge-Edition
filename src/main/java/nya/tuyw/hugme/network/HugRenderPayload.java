@@ -12,7 +12,7 @@ import java.util.function.Supplier;
 public class HugRenderPayload {
     private static final String PROTOCOL_VERSION = "1";
     public static final SimpleChannel INSTANCE = NetworkRegistry.newSimpleChannel(
-            ResourceLocation.fromNamespaceAndPath(HugMe.MODID, "main"),
+            new ResourceLocation(HugMe.MODID, "main"),
             () -> PROTOCOL_VERSION,
             PROTOCOL_VERSION::equals,
             PROTOCOL_VERSION::equals

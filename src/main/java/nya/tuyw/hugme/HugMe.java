@@ -57,7 +57,7 @@ public class HugMe {
             if (ServerLifecycleHooks.getCurrentServer() == null) return;
             File playerDataFile = new File(ServerLifecycleHooks.getCurrentServer().getWorldPath(LevelResource.PLAYER_DATA_DIR).toFile(), player.getUUID() + ".dat");
             if (!playerDataFile.exists()) {
-                ItemStack itemStack = new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath("hugme","hug_ticket")),16);
+                ItemStack itemStack = new ItemStack(BuiltInRegistries.ITEM.get(new ResourceLocation("hugme","hug_ticket")),16);
                 if (!player.getInventory().add(itemStack)) {
                     player.drop(itemStack, false);
                 }
